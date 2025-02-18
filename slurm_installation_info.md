@@ -66,7 +66,7 @@ mkdir -p /etc/slurm
 ```
 
 # Configuring slurm.conf
-You can generate a basic `slurm.conf` using `generate_slurm_conf.sh`. For a more detailed configuration guide, check out the [Slurm Configurator](https://slurm.schedmd.com/configurator.html)
+You can generate a basic `slurm.conf` using [`generate_slurm_conf.sh`](https://github.com/SeqExplorer/slurm_configuration/blob/main/generate_slurm_conf.sh). For a more detailed configuration guide, check out the [Slurm Configurator](https://slurm.schedmd.com/configurator.html)
 
 
 Below are some key configuration considerations:
