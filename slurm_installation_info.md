@@ -11,16 +11,11 @@ docker run -it ubuntu:20.04 bash
 ## Installing Required Tools in Docker
 Once inside the container, update the package lists and install basic networking and utility tools:
 ```
-apt update && apt install -y iproute2 iputils-ping netcat
-
 apt update && \
-apt upgrade -y && \
+apt install -y munge libmunge-dev libmunge2 && \
 apt install -y \
-libmunge-dev \
-libmunge2 \
 build-essential \
 python3 \
-munge \
 libssl-dev \
 libpam0g-dev \
 libhwloc-dev \
