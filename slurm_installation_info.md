@@ -42,7 +42,8 @@ service munge start
 # SLURM Installation
 ## Create the Slurm User and Directories:
 
-```useradd -m -d /var/lib/slurm -s /bin/bash slurm
+```
+useradd -m -d /var/lib/slurm -s /bin/bash slurm
 mkdir -p /var/spool/slurmctld /var/log/slurm
 chown slurm:slurm /var/spool/slurmctld /var/log/slurm
 ```
