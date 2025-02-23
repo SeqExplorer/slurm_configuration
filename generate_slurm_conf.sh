@@ -63,8 +63,8 @@ echo "MpiDefault=$MpiDefault" > mpi_config.txt
 echo "Generating slurm.conf without cgroup resource management..."
 
 cat <<EOF > slurm.conf
-ClusterName=Hulk
-SlurmctldHost=Hulk
+ClusterName=${NodeName}
+SlurmctldHost=${NodeName}
 MpiDefault=${MpiDefault}
 ProctrackType=proctrack/linuxproc
 
@@ -76,10 +76,11 @@ SlurmdPort=6818
 
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmd.pid
-SlurmdSpoolDir=/var/lib/slurm/slurmd
+SlurmdSpoolDir=/var/spool/slurmctld
 
 SlurmUser=slurm
-StateSaveLocation=/var/lib/slurm/slurmctld
+StateSaveLocation=/var/spool/slurmctld
+
 
 SwitchType=switch/none
 
