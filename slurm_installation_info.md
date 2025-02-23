@@ -15,6 +15,9 @@ apt update && \
 apt install -y munge libmunge-dev libmunge2 && \
 apt install -y \
 build-essential \
+gcc \
+g++ \
+make \
 python3 \
 libssl-dev \
 libpam0g-dev \
