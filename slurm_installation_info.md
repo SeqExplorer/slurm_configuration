@@ -29,7 +29,8 @@ libyaml-dev \
 man2html \
 wget \
 bzip2 \
-nano
+nano \
+wget
 ```
 
 # MUNGE Setup
