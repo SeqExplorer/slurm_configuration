@@ -268,11 +268,16 @@ The Slurm cgroup plugin (task/cgroup) is failing, likely due to an incorrect or 
 
 ### sinfo: error: resolve_ctls_from_dns_srv: res_nsearch error: Unknown host!; sinfo: error: fetch_config: DNS SRV lookup failed; sinfo: error: _establish_config_source: failed to fetch config; sinfo: fatal: Could not establish a configuration source 
 
-Clustername conflict:
+#### `ClusterName` conflict:
 -	cat /var/spool/slurmctld/clustername
 -	cat /etc/hosts; should have `127.0.0.1 localhost` and the server ip address with hostname, if it was missing then try to update based on `hostname -I` output. 
 
-Permissions:
+#### `SlurmctldHost` 
+- `SlurmctldHost=$(hostname)`
+- 
+
+#### Permissions:
 -	/var/run/slurmctld.pid
-Typos:
+
+#### Typos:
 
