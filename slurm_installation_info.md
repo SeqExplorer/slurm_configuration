@@ -154,58 +154,22 @@ The best choice depends on how you want to store, analyze, and process job compl
 
 
 
-## Suggested slurm.conf
+## basic slurm.conf
 ```
-ClusterName=hostname
-SlurmctldHost=hostname
+ClusterName=single-node-cluster
+SlurmctldHost=localhost
 MpiDefault=none
 ProctrackType=proctrack/linuxproc
-
-AuthType=auth/munge
-CredType=cred/munge
-
+ReturnToService=1
 SlurmctldPort=6817
 SlurmdPort=6818
-
-SlurmctldPidFile=/var/run/slurmctld.pid
-SlurmdPidFile=/var/run/slurmd.pid
-SlurmdSpoolDir=/var/lib/slurm/slurmd
-
-SlurmUser=slurm
-StateSaveLocation=/var/lib/slurm/slurmctld
-
-SwitchType=switch/none
-
-# cgroup resource management has been removed per requirements
-#TaskPlugin=task/cgroup
-TaskPlugin=task/none
-
-# Timer settings
-InactiveLimit=0
-KillWait=30
-MinJobAge=300
-SlurmctldTimeout=120
-SlurmdTimeout=300
-Waittime=0
-
-# Scheduling settings
-SchedulerType=sched/backfill
-SelectType=select/cons_tres
-SelectTypeParameters=CR_Core_Memory
-
-# Logging settings
-SlurmctldDebug=info
-SlurmctldLogFile=/var/log/slurm/slurmctld.log
-SlurmdDebug=info
+AuthType=auth/munge
+SlurmdSpoolDir=/var/spool/slurmctld
+StateSaveLocation=/var/spool/slurmctld
 SlurmdLogFile=/var/log/slurm/slurmd.log
-SlurmctldSyslogDebug=error
-SlurmdSyslogDebug=error
-
-# Define the node using extracted values
-NodeName=hostname CPUs=48 RealMemory=257370 Sockets=1 CoresPerSocket=24 ThreadsPerCore=2 State=IDLE
-
-# Define partitions
-PartitionName=main Nodes=hostname Default=YES MaxTime=10-0 State=UP
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+NodeName=localhost CPUs=4 State=UNKNOWN
+PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
 ```
 
 
@@ -275,6 +239,12 @@ The Slurm cgroup plugin (task/cgroup) is failing, likely due to an incorrect or 
 #### `SlurmctldHost` 
 - `SlurmctldHost=$(hostname)`
 - 
+
+#### Network:
+- `ps -ef | grep slurmctld; netstat -tulnp | grep 6817` to check whether the port is listed or not. 
+- Check firewall rules: `iptables -F` 
+- Test connectivity from slurmd to slurmctld `scontrol ping` 
+
 
 #### Permissions:
 -	/var/run/slurmctld.pid
