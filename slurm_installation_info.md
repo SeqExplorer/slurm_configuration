@@ -65,9 +65,45 @@ make install
 mkdir -p /etc/slurm
 ```
 
-# Configuring slurm.conf
+## Set the permissions and export PATH
+```
+chown -R slurm:slurm /etc/slurm /var/spool/slurmctld \
+/var/log/slurm \
+/usr/local/slurm/sbin/slurmctld \
+/usr/local/slurm/sbin/slurmd \
+
+echo 'export PATH=/usr/local/slurm/bin:$PATH' >> ~/.bashrc
+echo 'export PATH=/usr/local/slurm/sbin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/slurm/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+
+## Configuring slurm.conf
 You can generate a basic `slurm.conf` using [`generate_slurm_conf.sh`](https://github.com/SeqExplorer/slurm_configuration/blob/main/generate_slurm_conf.sh). For a more detailed configuration guide, check out the [Slurm Configurator](https://slurm.schedmd.com/configurator.html)
 
+### basic slurm.conf
+```
+ClusterName=single-node-cluster
+SlurmctldHost=localhost
+MpiDefault=none
+ProctrackType=proctrack/linuxproc
+ReturnToService=1
+SlurmctldPort=6817
+SlurmdPort=6818
+AuthType=auth/munge
+SlurmdSpoolDir=/var/spool/slurmctld
+StateSaveLocation=/var/spool/slurmctld
+SlurmdLogFile=/var/log/slurm/slurmd.log
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+NodeName=localhost CPUs=4 State=UNKNOWN
+PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
+```
+
+## Test slurm
+```
+squeue
+```
 
 Below are some key configuration considerations:
 
@@ -154,23 +190,6 @@ The best choice depends on how you want to store, analyze, and process job compl
 
 
 
-## basic slurm.conf
-```
-ClusterName=single-node-cluster
-SlurmctldHost=localhost
-MpiDefault=none
-ProctrackType=proctrack/linuxproc
-ReturnToService=1
-SlurmctldPort=6817
-SlurmdPort=6818
-AuthType=auth/munge
-SlurmdSpoolDir=/var/spool/slurmctld
-StateSaveLocation=/var/spool/slurmctld
-SlurmdLogFile=/var/log/slurm/slurmd.log
-SlurmctldLogFile=/var/log/slurm/slurmctld.log
-NodeName=localhost CPUs=4 State=UNKNOWN
-PartitionName=debug Nodes=ALL Default=YES MaxTime=INFINITE State=UP
-```
 
 
 
@@ -244,7 +263,8 @@ The Slurm cgroup plugin (task/cgroup) is failing, likely due to an incorrect or 
 - `ps -ef | grep slurmctld; netstat -tulnp | grep 6817` to check whether the port is listed or not.
   - if `netstat` was not installed, install it by: `apt update && apt install net-tools -y`
 - Check firewall rules: `iptables -F` 
-- Test connectivity from slurmd to slurmctld `scontrol ping` 
+- Test connectivity from slurmd to slurmctld `scontrol ping`
+- Check wheterh `munge` is running `service munge status` 
 
 
 #### Permissions:
