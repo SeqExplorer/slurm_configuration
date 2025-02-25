@@ -241,7 +241,8 @@ The Slurm cgroup plugin (task/cgroup) is failing, likely due to an incorrect or 
 - 
 
 #### Network:
-- `ps -ef | grep slurmctld; netstat -tulnp | grep 6817` to check whether the port is listed or not. 
+- `ps -ef | grep slurmctld; netstat -tulnp | grep 6817` to check whether the port is listed or not.
+  - if `netstat` was not installed, install it by: `apt update && apt install net-tools -y`
 - Check firewall rules: `iptables -F` 
 - Test connectivity from slurmd to slurmctld `scontrol ping` 
 
