@@ -70,7 +70,7 @@ mkdir -p /etc/slurm
 chown -R slurm:slurm /etc/slurm /var/spool/slurmctld \
 /var/log/slurm \
 /usr/local/slurm/sbin/slurmctld \
-/usr/local/slurm/sbin/slurmd \
+/usr/local/slurm/sbin/slurmd 
 
 echo 'export PATH=/usr/local/slurm/bin:$PATH' >> ~/.bashrc
 echo 'export PATH=/usr/local/slurm/sbin:$PATH' >> ~/.bashrc
